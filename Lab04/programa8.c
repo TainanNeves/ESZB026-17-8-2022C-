@@ -8,8 +8,11 @@
 
 int main(){
    int pino_PWM = 23;      //PWM por software no GPIO23
+   pinMode(pino_PWM, OUTPUT);
    int brilho;             
    int range = 100;        //Periodo do PWM = 100us*range
+
+   wiringPiSetupGpio();    // usar a numeracao GPIO , nao WPi
 
    //Configurando a comunicação
    int valor;
@@ -26,22 +29,11 @@ int main(){
    tcsetattr(file, TCSANOW, & options); // aplica alteracoes imediatamente
    unsigned char transmit [23] = " Testando a comunicacao \0"; //Teste de counicação
 
-//Ainda falta configurar o recebimento e tudo mais (Codigo relatório pg 5)
-
-
-
-
-
-
-
-
-   wiringPiSetupGpio();    // usar a numeracao GPIO , nao WPi
-   pinMode(pino_PWM, OUTPUT);
    softPwmCreate(pino_PWM, 1, range); //Inicia o PWM por software
 
    while (1) {                         //Roda infinitamente
-      brilho = 
-      softPwmWrite ( pino_PWM , brilho ); // altera o duty cycle do PWM
+      brilho = valor;
+      softPwmWrite(pino_PWM, brilho);
       delay (500) ; // aguarda 500 ms
    }
 }
