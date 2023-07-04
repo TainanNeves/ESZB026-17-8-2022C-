@@ -28,17 +28,31 @@ def ativar_estim():
 #data_serial = []	#	inicializamos uma lista vazia
 
 def read_store_data():
+	print(f"Iniciando leitura do Serial em 3 segundos.")
 	try:
+		count = 0
+		time.sleep(3)
+		print(f"Lendo Serial...")
 		while True:
 			line = arduino.readline()				#	lendo
+			#print(line.decode())
+			
 			if line:								#	vemos se a linha está vazia
 				line_decoded = line.decode()		#	convertemos a string em byte para uma string em unicode
-				if line_decoded != '!':				#	nos certificamos que o valor recebido não é nulo
-					line_int = int(line_decoded)	#	convertemos a string unicode em um int (mas poderia ser para um float, por exemplo)
+				#print(line_decoded)
+				if line_decoded != '!\r\n':				#	nos certificamos que o valor recebido não é nulo
+					line_int = float(line_decoded)	#	convertemos a string unicode em um int (mas poderia ser para um float, por exemplo)
 					data_serial.append(line_int)	#	adicionamos o valor à nossa lista "data_serial"
+					count += 1
+					print(f"{count} valores lidos.", end="\r")
+					#print(line_decoded)
+				#data_serial.append(line_decoded)
 													#	poderíamos guardar também os '!' para deixar mais cru
-		timestr = time.strftime("%Y%m%d-%H%M%S")
+			
 	except KeyboardInterrupt:
+		print(f"{count} valores lidos.")
+		print(f"Leitura interrompida!")
+		timestr = time.strftime("%Y%m%d-%H%M%S")
 		pass
 
 	f = open(f'dados_gravados_{timestr}.csv', "w+")
@@ -47,6 +61,8 @@ def read_store_data():
 	with open(f'dados_gravados_{timestr}.csv','a',newline='') as f:
 	    write = csv.writer(f)
 	    write.writerow(data_serial)
+
+	print(f"Dados gravados no arquivo 'dados_gravados_{timestr}.csv'")
 
 
 def main_loop():
