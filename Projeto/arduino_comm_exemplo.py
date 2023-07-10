@@ -4,7 +4,7 @@ import time
 import csv
 
 
-COM_port = 'COM3'
+COM_port = '/dev/ttyACM0'
 BDR = 115200
 
 #	inicial leitura do serial COM3 a uma baudrate de 115200 e damos o nome de "arduino"
