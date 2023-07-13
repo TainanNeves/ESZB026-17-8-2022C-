@@ -40,8 +40,8 @@ def read_store_data():
 			if line:								#	vemos se a linha está vazia
 				line_decoded = line.decode()		#	convertemos a string em byte para uma string em unicode
 				#print(line_decoded)
-				if line_decoded != '!\r\n':				#	nos certificamos que o valor recebido não é nulo
-					line_int = float(line_decoded)	#	convertemos a string unicode em um int (mas poderia ser para um float, por exemplo)
+				if line_decoded:				#	nos certificamos que o valor recebido não é nulo
+					line_int = int(line_decoded)	#	convertemos a string unicode em um int (mas poderia ser para um float, por exemplo)
 					data_serial.append(line_int)	#	adicionamos o valor à nossa lista "data_serial"
 					count += 1
 					print(f"{count} valores lidos.", end="\r")
