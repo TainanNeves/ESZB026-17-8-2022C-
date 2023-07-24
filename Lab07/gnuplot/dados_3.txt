@@ -1,0 +1,17 @@
+# Arquivo de exemplo com quaisquer dados
+# X  Y
+  1  2
+  2  5
+  3  6
+  4  6
+  5  8
+  6  10
+  7  20
+  8  1
+  9  3
+  10 1
+  11 7
+  12 3
+  13 3
+  14 1
+  15 2
