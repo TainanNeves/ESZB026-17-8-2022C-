@@ -1,15 +1,15 @@
 #!/bin/sh
-ARQUIVODADOS=/home/pi/ESZB026-17-8-2022C-/Lab07/gnuplot/dados_2.txt
-ARQUIVOSAIDA=/home/pi/ESZB026-17-8-2022C-/Lab07/gnuplot/dados_2.png
+ARQUIVODADOS=/home/pi/ESZB026-17-8-2022C-/Lab07/gnuplot/dados.txt
+ARQUIVOSAIDA=/home/pi/ESZB026-17-8-2022C-/Lab07/gnuplot/dados.png
 
 gnuplot << EOF
-set title "Grafico 2"
+set title "Grafico Joao e Mateus"
 set ylabel "Eixo Y"
 set xlabel "Eixo X"
 set terminal png
 set output "$ARQUIVOSAIDA"
 plot "$ARQUIVODADOS" \
-     linecolor rgb '#FFFF00' \
+     linecolor rgb '#FF0000' \
      linetype 1 \
      linewidth 1 \
      pointtype 2 \
