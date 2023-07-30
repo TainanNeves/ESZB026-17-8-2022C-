@@ -1,0 +1,81 @@
+<HTML><HEAD><meta charset="UTF-8">
+<TITLE>Monitoramento e regulação do ritmo cardíaco</TITLE>
+<style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+</HEAD>
+<BODY style="background-color:#FFFFE0"><H1>Monitoramento e regulação do ritmo cardíaco</H1>
+Diretório: 
+, usuário logado: 
+.<br>
+<h2>ECG:</h2>
+<pre>
+Aquisição realizada a 240 Hz, para os últimos 6 segundos.
+<a href="ecg.txt">Baixar dados</a>
+</pre>
+<br>
+<h2>Frequência Cardíaca (FC):</h2>
+<pre>
+Cálculo da frequência cardíaca (em BPM) a partir dos dados de ECG para as últimas 24 horas.
+<a href="fcbpm.txt">Baixar dados</a>
+<br>
+<< GRÁFICO COM A VARIAÇÃO DA FREQUÊNCIA CARDÍACA A CADA SEGUNDO >>
+imagem exemplificando:
+<img src="HR_Example.png">
+</pre>
+<br>
+<h2>Detalhes dos alarmes:</h2>
+<pre>
+A cada taquicardia detectada (FC > 100) é ativado um alarme e iniciado o protocolo de estimulação do nervo vago.
+Informações sobre os horários de ativação se encontram abaixo.
+<a href="alarmes.txt">Baixar dados</a>
+<br>
+tabela de exemplo:
+<table>
+    <tr>
+        <th>Data</th>
+        <th>Horário</th>
+        <th>FC antes (bpm)</th>
+        <th>FC depois (bpm)</th>
+    </tr>
+    <tr>
+        <td contenteditable="true">2023-07-30</td>
+        <td contenteditable="true">14:00:32</td>
+        <td contenteditable="true">111</td>
+        <td contenteditable="true">89</td>
+    </tr>
+    <tr>
+        <td contenteditable="true">2023-07-30</td>
+        <td contenteditable="true">15:12:26</td>
+        <td contenteditable="true">109</td>
+        <td contenteditable="true">94</td>
+    </tr>
+    <tr>
+        <td contenteditable="true">2023-07-30</td>
+        <td contenteditable="true">17:40:00</td>
+        <td contenteditable="true">117</td>
+        <td contenteditable="true">93</td>
+    </tr>
+</table>
+</pre>
+<br>
+<br>
+</BODY>
+<h2>Sobre o projeto</h2>
+O projeto “Monitoramento e regulação do ritmo cardíaco via estimulação do nervo vago” visa desenvolver um dispositivo que monitore a FC de seu usuário através do ECG e mantenha um registro da FC. Caso o dispositivo identifique que a FC é equivalente a uma taquicardia (> 100 bpm), ele deverá acionar um alarme que ativará a unidade de estimulação elétrica do nervo vago (Vagus Nerve Stimulator, VNS, de terceiro) através de pulsos monofásicos enviados pelo dispositivo a entrada de trigger do VNS. Os eventos de estimulação, tal como o momento e o protocolo utilizado (frequência de estimulação e duração), também serão registrados para posterior análise. Dessa maneira, espera-se obter uma diminuição da FC devido à estimulação do nervo vago, de forma a evitar que a taquicardia se estenda e resulte em deterioração da função cardíaca, e disponibilizar ao profissional da saúde informações mais precisas sobre a incidência desse evento no paciente (frequência, momentos de início etc).
+
+</HTML>
