@@ -22,12 +22,21 @@ def aumenta_freq():
     conexaoSerial.write(b'd')
 
 def ler_taxa():
+    conexaoSerial.write(b'p')
+    time.sleep(0.1)
+    conexaoSerial.flushInput()
+    conexaoSerial.flushOutput()
+    time.sleep(0.1)
     conexaoSerial.write(b't')
-    taxa_lida = str(conexaoSerial.read())
-    texto2 = pg.TextItem(text="Taxa lida: " + taxa_lida + " ms", color = (255,255,0), anchor = (1,1))
-    p1.addItem(texto2)
-    texto2.setPos(1,1)
+    time.sleep(0.1)
+    dado1t = conexaoSerial.read()
+    #dado2t = conexaoSerial.read()
+    taxa_lida = str(ord(dado1t))
+    texto2.setText("Taxa lida: " + taxa_lida + " ms")
     print(taxa_lida)
+    print(dado1t)
+    time.sleep(1)
+    conexaoSerial.write(b'i')
 
 def saindo():
     conexaoSerial.write(b'p')
@@ -65,8 +74,11 @@ ptr1 = 0
 
 previousTime = time.time()*1000 # pega a hora atual, em milissegundos
 texto = pg.TextItem(text="", color=(255,255,0), anchor=(0,1))
+texto2 = pg.TextItem(text="", color=(255,255,0), anchor=(0,1))
 p1.addItem(texto)
+p1.addItem(texto2)
 texto.setPos(0,0) # adiciona o texto na posicao (0,0) do grafico
+texto2.setPos(650,4)
 
 proxy1 = QtGui.QGraphicsProxyWidget()
 botao1 = QtGui.QPushButton('Inicia')

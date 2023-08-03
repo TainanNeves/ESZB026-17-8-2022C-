@@ -16,21 +16,21 @@ void loop(){
           case 'i':                    // inicia coleta
              iniciaColeta = 1;
              break;
-             
           case 'p':                    // para a coleta
              iniciaColeta = 0;
-             brea k;
+             break;
           case 'a':                    // para a coleta
              nosso_delay += 10;
-             Serial.println(nosso_delay);
+             //Serial.println(nosso_delay);
              break;
           case 'd':                    // para a coleta
              if (nosso_delay > 10){
              nosso_delay -= 10;
-             Serial.println(nosso_delay);}
+             //Serial.println(nosso_delay);
+           }
              break;
           case 't':
-              Serial.println(nosso_delay);
+              Serial.write(nosso_delay);
               break;
              
           default:                     // outro comando, ignora...
