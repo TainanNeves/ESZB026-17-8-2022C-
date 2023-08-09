@@ -1,7 +1,7 @@
-  #define ECG_PIN A1 //porta analógica de entrada
+  #define ECG_PIN A3 //porta analógica de entrada
 #define N_PONTOS 3
 #define N 2
-#define a 0.05
+#define a 0.01
 
 int ms_counter = 0;
 // int loop_counter = 0;
@@ -17,6 +17,8 @@ unsigned long tempo_atual, tempo_anterior;
 int ECG_read[N_PONTOS];   // vetor com as medidas atuais
 int Y[N_PONTOS];   // vetor com as medidas filtradas
 int contador;
+int protocol_now;
+int protocol_start;
 
 float media;
 boolean inicial = true;
@@ -34,11 +36,8 @@ void loop() {
   tempo_atual = micros();
   
   if (digitalRead(13) == HIGH){
-    if (ms_counter < 5000){
-      ms_counter += 1;
-    }
-    else {
-      ms_counter = 0;
+    protocol_now = millis();
+    if ((protocol_now-protocol_start) > 5000){
       digitalWrite(13, LOW);
     }
 
@@ -46,7 +45,8 @@ void loop() {
   if (Serial.available()){
     int state = Serial.read();
     if (state == 'h'){
-      ms_counter = 0;
+      //ms_counter = 0;
+      protocol_start = millis();
       digitalWrite(13, HIGH); // ativa protocolo de estimulação
     }
   } 
