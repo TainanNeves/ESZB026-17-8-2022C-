@@ -7,7 +7,7 @@ import numpy as np
 import timeit
 
 
-COM_port = 'COM3'
+COM_port = 'COM4'
 BDR = 115200
 taxa_amostragem = 240
 
@@ -37,16 +37,19 @@ def read_store_data():
 		count = 0
 		count_for_hr=0
 		count_for_stimulation = 0
+		count_ten_s = 0
 		stimulating = False
 		freq_c = "-"
 		time.sleep(3)
 		print(f"Lendo Serial...")
 		while True:
 			line = arduino.readline()				#	lendo
+			print(count, end="\r")
+			count += 1
 			#print(line.decode())
-
+			
 			if stimulating == True and (timeit.default_timer()-stimulation_start) >= 7: # 7 segundos
-				this_stim_data.append(int(hp_measures['bpm'])
+				this_stim_data.append(int(hp_measures['bpm']))
 				data_stimulation.append(this_stim_data)
 				stimulating = False
 			
@@ -58,12 +61,14 @@ def read_store_data():
 					data_serial.append(line_int)	#	adicionamos o valor à nossa lista "data_serial"
 					data_fc.append(freq_c)
 					count += 1
+					count_ten_s += 1
 					count_for_hr += 1
 					print(f"{count} valores lidos. FC = {freq_c} bpm.", end="\r")
 					#print(line_decoded)
 				#data_serial.append(line_decoded)
 													#	poderíamos guardar também os '!' para deixar mais cru
 			#if count == 1680: # 7 segundos (7 x 240 Hz)
+			
 			if count_for_hr == 1260: # 5 segundos (5 x 240 Hz) + 60 pontos de descarte
 				## calcula bpm para os ultimos 1200 pontos (desconsidera os primeiros 60 pontos, 0,25 segundos)
 				data_ecg_for_measure = np.array(data_serial[-1200:]) # transformamos nossa lista de valores medidos em um numpy array
@@ -83,9 +88,23 @@ def read_store_data():
 				ativar_estim()
 				count_for_stimulation = 0
 
+			if count_ten_s == 2400: # 10 segundos
+				count_ten_s = 0
+				f = open(f'dados_gravados_10s.csv', "w+")
+				f.close()
+				with open(f'dados_gravados_10s.csv','a') as f:
+				    write = csv.writer(f)
+				    write.writerow(data_serial[-2400:])
+				f = open(f'fc_gravado_10s.txt', "w+")
+				f.close()
+				with open(f'fc_gravado_10s.txt','a') as f:
+				    write = csv.writer(f)
+				    write.writerow([freq_c])
+
+			
 			
 	except KeyboardInterrupt:
-		print(f"{count} valores lidos.")
+		#print(f"{count} valores foram lidos.")
 		print(f"Leitura interrompida!")
 		timestr = time.strftime("%Y%m%d-%H%M%S")
 		pass
