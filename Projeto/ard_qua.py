@@ -7,7 +7,9 @@ import numpy as np
 import timeit
 
 
-COM_port = 'COM4'
+#COM_port = 'COM4' #windows
+#COM_port = '/dev/ttyUSB0' #raspberry
+COM_port = '/dev/ttyACM0' #raspberry???
 BDR = 115200
 taxa_amostragem = 240
 
