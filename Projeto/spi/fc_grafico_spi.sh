@@ -1,23 +1,21 @@
 #!/bin/sh
 ARQUIVODADOS=/home/pi/fc_medidas.txt
-CSVDADOS=/home/pi/dados_gravados_10ss.csv
 ARQUIVOSAIDA=/home/pi/fc_medidas.png
+CSVDADOS=/home/pi/mu_code/dados_gravados_10s.csv
 
 gnuplot << EOF
-
-set title "Análise da Freq. Cardiaca"
 set datafile separator ','
-set ylabel "Freq. Cardiaca [bpm]"
-set xlabel "Tempo [h]"
+set title "ECG últimos 10 segundos"
+set ylabel "V (mV)"
+set xlabel "Tempo [s]"
 set terminal png
 set output "$ARQUIVOSAIDA"
 plot "$CSVDADOS" \
      linecolor rgb '#0060ad' \
      linetype 1 \
      linewidth 1 \
-     pointtype 2 \
-     pointsize 1.0 \
-     title "FC" \
+     pointsize 0 \
+     title "ECG" \
      with linespoints
 EOF
 

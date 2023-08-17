@@ -1,4 +1,5 @@
-# Importing Libraries
+#!/usr/bin/python3
+
 import serial
 import time
 import csv
@@ -41,6 +42,7 @@ def read_store_data():
 		count_for_stimulation = 0
 		count_ten_s = 0
 		stimulating = False
+		mylis = list(range(1,2401))
 		freq_c = "-"
 		time.sleep(3)
 		print(f"Lendo Serial...")
@@ -94,14 +96,19 @@ def read_store_data():
 				count_ten_s = 0
 				f = open(f'dados_gravados_10s.csv', "w+")
 				f.close()
-				with open(f'dados_gravados_10s.csv','a') as f:
-				    write = csv.writer(f)
-				    write.writerow(data_serial[-2400:])
+				with open(f'dados_gravados_10s.csv','a',newline='') as f:
+				    fieldnames = ['col1','col2']
+				    writer = csv.DictWriter(f, fieldnames=fieldnames)
+				    writer.writeheader()
+				   # write.writerow(data_serial[-2400:])
+				    for i, j in zip(mylis,data_serial[-2400:]):
+					    writer.writerow({'col1': i, 'col2': int(j)})
 				f = open(f'fc_gravado_10s.txt', "w+")
 				f.close()
 				with open(f'fc_gravado_10s.txt','a') as f:
 				    write = csv.writer(f)
 				    write.writerow([freq_c])
+
 
 			
 			
